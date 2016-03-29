@@ -12,7 +12,7 @@ module.exports = [
       "Transfer-Encoding": "chunked",
       "Content-Type": "application/json; charset=UTF-8"
     },
-    response: "{}"
+    response: "{\"key\": \"empty\"}"
   },
   {
     method:  "GET",

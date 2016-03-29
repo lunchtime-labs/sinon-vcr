@@ -1,20 +1,21 @@
-var SinonVcr = require('../src/sinon-vcr');
+var VCR = require('../src/sinon-vcr');
 var test = require('vcr/test');
+var test_2 = require('vcr/test_2');
 
-describe('SinonVcr', function() {
+describe('VCR', function() {
   afterEach(function() {
-    SinonVcr.reset();
+    VCR.reset();
   });
 
   describe('#server', function () {
     it('allows access to the sinon.fakeServer', function () {
-      expect(typeof SinonVcr.server).to.eq('object')
+      expect(typeof VCR.server).to.eq('object')
     });
   });
 
   describe('#use', function () {
     it('responds to the endpoints described in the mock', function(done) {
-      SinonVcr.use(test);
+      VCR.use(test);
 
       $.get(
         'https://127.0.0.1:8443/system/AD?_action=test',
@@ -25,11 +26,24 @@ describe('SinonVcr', function() {
         }
       );
     });
+
+    it('allows you to use multiple cartridges, cascading', function(done) {
+      VCR.use(test);
+      VCR.use(test_2);
+
+      $.get(
+        'https://127.0.0.1:8443/config/ui/configuration',
+        function(response) {
+          expect(response.key).to.eq('value');
+          done();
+        }
+      );
+    });
   });
 
   describe('#reset', function () {
     it('restores the server/does not respond to endpoints', function(done) {
-      SinonVcr.reset();
+      VCR.reset();
 
       $.get('https://127.0.0.1:8443/system/AD?_action=test').fail(function(){
         done()
