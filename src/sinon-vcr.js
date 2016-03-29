@@ -1,8 +1,17 @@
-module.exports =
-  (function () {
-    window.server = sinon.fakeServer.create();
+(function () {
+  var SinonVcr = (function () {
+    SinonVcr.use = function (moduleName) {
 
-    server.respondImmediately = true;
+    };
 
-    return server;
-  })()
+    function SinonVcr(){}
+
+    return SinonVcr;
+  })();
+
+  window.server = sinon.fakeServer.create();
+
+  server.respondImmediately = true;
+
+  module.exports = SinonVcr;
+})()

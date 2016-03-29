@@ -30,15 +30,15 @@ You must have a test suite that:
 Mocha Example
 
 ```
-var SinonVCR = require('sinon-vcr');
+var SinonVcr = require('sinon-vcr');
 
 describe('myObject', function() {
   beforeEach(function() {
-    SinonVCR.use(["default"]);
+    SinonVcr.use("default");
   });
 
   it('does something', function(done) {
-    SinonVCR.use(["autoplay_false"]);
+    SinonVcr.use("autoplay_false");
 
     $.get("http://www.example.com/api/v1/publishers", function (response) {
       console.log(response);
