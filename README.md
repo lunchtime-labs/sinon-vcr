@@ -2,6 +2,8 @@
 
 [![Circle CI](https://circleci.com/gh/lunchtime-labs/sinon-vcr.svg?style=shield&circle-token=ba61a22356db23763a57b80a258cd36e306d341c)](https://circleci.com/gh/lunchtime-labs/sinon-vcr)
 
+[![Code Climate](https://codeclimate.com/github/lunchtime-labs/sinon-vcr/badges/gpa.svg)](https://codeclimate.com/github/lunchtime-labs/sinon-vcr)
+
 Sinon-VCR integrates with the `sinon.fakeServer` method of
 [SinonJS](http://www.sinonjs.org), allowing developers to dynamically select
 a set of XHR responses to playback during test interactions.
