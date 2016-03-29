@@ -45,16 +45,16 @@ Example using Karma/Browserify
 Mocha Example
 
 ```
-var SinonVcr = require('sinon-vcr');
+var VCR = require('sinon-vcr');
 var autoplayFalse = require('vcr/autoplay_false');
 
 describe('myObject', function() {
   beforeEach(function() {
-    SinonVcr.reset();
+    VCR.reset();
   });
 
   it('responds with autoplay false', function(done) {
-    SinonVcr.use(autoplayFalse);
+    VCR.use(autoplayFalse);
 
     $.get("http://www.example.com/api/v1/publishers", function (response) {
       expect(response.autoplay).to.eq(false);
