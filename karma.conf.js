@@ -76,7 +76,8 @@ module.exports = function (config) {
     reportSlowerThan: 500,
 
     browserify: {
-      debug: true
+      debug: true,
+      paths: [ __dirname + "/spec/fixtures/" ]
     },
 
     plugins: [
