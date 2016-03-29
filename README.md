@@ -1,6 +1,8 @@
 # Sinon-VCR
 
-## This repository is under development and is not ready for use
+[![Circle CI](https://circleci.com/gh/lunchtime-labs/sinon-vcr.svg?style=shield&circle-token=ba61a22356db23763a57b80a258cd36e306d341c)](https://circleci.com/gh/lunchtime-labs/sinon-vcr)
+
+[![Code Climate](https://codeclimate.com/github/lunchtime-labs/sinon-vcr/badges/gpa.svg)](https://codeclimate.com/github/lunchtime-labs/sinon-vcr)
 
 Sinon-VCR integrates with the `sinon.fakeServer` method of
 [SinonJS](http://www.sinonjs.org), allowing developers to dynamically select
@@ -11,8 +13,7 @@ a set of XHR responses to playback during test interactions.
 You must have a test suite that:
 
 1. Depends on AJAX requests from the browser.
-2. Conforms to CommonJS syntax. (supports `require` calls using i.e. [Browserify](http://browserify.org/)
-   or [Webpack](https://webpack.github.io/)).
+2. Conforms to CommonJS syntax. (supports `require` calls using i.e. [Browserify](http://browserify.org/) or [Webpack](https://webpack.github.io/)).
 3. Uses SinonJS.
 
 ## Setup
@@ -23,26 +24,40 @@ You must have a test suite that:
 
 ### Setup
 
-1. See [MockBuilder](https://github.com/andremalan/mockbuilder) for
-   information on generating 'mocks'.
-2. Place generated 'mock' files into `$YOUR_PROJECT/spec/fixtures/vcr/`.
+1. See [Lunchtime Labs MockBuilder](https://github.com/lunchtime-labs/mockbuilder)
+   for information on generating 'mocks'.
+2. Place generated 'mock' files into your 'spec' or 'test' directory.
+   i.e. `$YOUR_PROJECT/spec/fixtures/vcr/`.
+3. Add the path for the mocks to your `browserify` or `webpack` require path.
+
+Example using Karma/Browserify
+
+`karma.conf.js`
+
+```js
+    browserify: {
+      paths: [ __dirname + "/spec/fixtures/" ]
+    },
+```
+
+4. Add to your tests:
 
 Mocha Example
 
 ```
-var SinonVCR = require('sinon-vcr');
+var SinonVcr = require('sinon-vcr');
+var autoplayFalse = require('vcr/autoplay_false');
 
 describe('myObject', function() {
   beforeEach(function() {
-    SinonVCR.use(["default"]);
+    SinonVcr.reset();
   });
 
-  it('does something', function(done) {
-    SinonVCR.use(["autoplay_false"]);
+  it('responds with autoplay false', function(done) {
+    SinonVcr.use(autoplayFalse);
 
     $.get("http://www.example.com/api/v1/publishers", function (response) {
-      console.log(response);
-
+      expect(response.autoplay).to.eq(false);
       done();
     });
   });
@@ -52,18 +67,20 @@ describe('myObject', function() {
 This example will look for mocks in:
 
 ```
-spec/fixtures/vcr/default.js
 spec/fixtures/vcr/autoplay_false.js
 ```
 
 ## API
 
+### reset:
+`function ()`
+
+Restore the sinon fakeServer between requests.
+
 ### use:
 `function (mock: string)`
 
 Use an XHR mock for XHR playback.
-
-`myMock` corresponds to `spec/fixtures/vcr/myMock.js`
 
 ## Contributing
 
