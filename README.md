@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/lunchtime-labs/sinon-vcr/badges/gpa.svg)](https://codeclimate.com/github/lunchtime-labs/sinon-vcr)
 
 Sinon-VCR integrates with the `sinon.fakeServer` method of
-[SinonJS](http://www.sinonjs.org), allowing developers to dynamically select
+[SinonJS](http://www.sinonjs.org), allowing developers to select
 a set of XHR responses to playback during test interactions.
 
 ## Requirements
