@@ -40,8 +40,6 @@ Example using Karma/Browserify
     },
 ```
 
-4. Add to your tests:
-
 Mocha Example
 
 ```
