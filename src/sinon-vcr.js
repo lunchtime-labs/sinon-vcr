@@ -30,8 +30,15 @@
 
     // Private
     SinonVcr.prototype._init = function () {
-      this.server = sinon.fakeServer.create();
-      this.server.respondImmediately = true;
+      if (window.CAPTURE) {
+        this.server = {
+          respondWith: function (){},
+          restore: function (){}
+        }
+      } else {
+        this.server = sinon.fakeServer.create();
+        this.server.respondImmediately = true;
+      }
     }
 
     return SinonVcr;
