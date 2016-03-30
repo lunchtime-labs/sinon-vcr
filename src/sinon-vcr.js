@@ -3,14 +3,12 @@
   var SinonVcr = (function () {
     // Constructor
     function SinonVcr(){
-      this._init();
+      this.init();
     }
 
     // Public
-    SinonVcr.prototype.reset = function() {
+    SinonVcr.prototype.reset = function(capture) {
       this.server.restore();
-
-      this._init();
     };
 
     SinonVcr.prototype.use = function (mock) {
@@ -29,11 +27,11 @@
     };
 
     // Private
-    SinonVcr.prototype._init = function () {
-      if (window.CAPTURE) {
+    SinonVcr.prototype.init = function (capture) {
+      if (capture === 'capture') {
         this.server = {
           respondWith: function (){},
-          restore: function (){}
+          restore: function (){ debugger }
         }
       } else {
         this.server = sinon.fakeServer.create();

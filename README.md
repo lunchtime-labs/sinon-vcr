@@ -26,10 +26,6 @@ You must have a test suite that:
 
 1. See [Lunchtime Labs MockBuilder](https://github.com/lunchtime-labs/mockbuilder)
    for information on generating 'mocks'.
-
-Note: You can use `window.CAPTURE; VCR.reset()` to disable `sinon-vcr` while you
-run your tests once, then save and convert a HAR file.
-
 2. Place generated 'mock' files into your 'spec' or 'test' directory.
    i.e. `$YOUR_PROJECT/spec/fixtures/vcr/`.
 3. Add the path for the mocks to your `browserify` or `webpack` require path.
@@ -54,6 +50,10 @@ var autoplayFalse = require('vcr/autoplay_false');
 
 describe('myObject', function() {
   beforeEach(function() {
+    VCR.init(); // optionally pass 'capture'`
+  });
+
+  afterEach(function() {
     VCR.reset();
   });
 
@@ -76,15 +76,37 @@ spec/fixtures/vcr/autoplay_false.js
 
 ## API
 
+### init:
+function( capture: string )
+
+> Intitializes VCR and sets it up to receive `use` calls.
+
+> Optionally passing the string `capture` will allow ajax to pass through, and
+> place a `debugger` statement in the `reset` method that will allow you an
+> opportunity to pause Javascript exeution and save a `.har` file.
+
+```
+VCR.init(); // Mock AJAX
+VCR.init('capture'); // AJAX runs normally, stop JS execution at cleanup
+```
+
 ### reset:
 `function ()`
 
-Restore the sinon fakeServer between requests.
+> Restore the sinon fakeServer between requests.
+
+```
+VCR.reset();
+```
 
 ### use:
-`function (mock: string)`
+`function (mock: object)`
 
-Use an XHR mock for XHR playback.
+> Use an XHR mock for XHR playback.
+
+```
+VCR.use(require('vcr/mock');
+```
 
 ## Contributing
 

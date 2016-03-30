@@ -5,6 +5,10 @@ var test_2 = require('vcr/test_2');
 describe('VCR', function() {
   describe('playback', function() {
     beforeEach(function() {
+      VCR.init();
+    });
+
+    afterEach(function() {
       VCR.reset();
     });
 
@@ -53,19 +57,20 @@ describe('VCR', function() {
     });
   });
 
-  describe('capturing', function () {
-    beforeEach(function() {
-      window.CAPTURE = true;
-      VCR.reset();
-    });
+  describe('capture', function () {
+    describe('#init("capture")', function (){
+      beforeEach(function() {
+        VCR.init('capture');
+      });
 
-    afterEach(function() {
-      window.CAPTURE = false;
-    });
+      afterEach(function() {
+        VCR.reset();
+      });
 
-    it('allows a call to a url that is not mocked', function(done) {
-      $.get('https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo').success(function(){
-        done();
+      it('allows a call to a url that is not mocked', function(done) {
+        $.get('https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo').success(function(){
+          done();
+        });
       });
     });
   });
