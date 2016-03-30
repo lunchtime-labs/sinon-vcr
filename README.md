@@ -26,6 +26,10 @@ You must have a test suite that:
 
 1. See [Lunchtime Labs MockBuilder](https://github.com/lunchtime-labs/mockbuilder)
    for information on generating 'mocks'.
+
+Note: You can use `window.CAPTURE; VCR.reset()` to disable `sinon-vcr` while you
+run your tests once, then save and convert a HAR file.
+
 2. Place generated 'mock' files into your 'spec' or 'test' directory.
    i.e. `$YOUR_PROJECT/spec/fixtures/vcr/`.
 3. Add the path for the mocks to your `browserify` or `webpack` require path.
