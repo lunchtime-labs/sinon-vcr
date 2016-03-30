@@ -1,6 +1,6 @@
 {
   "name": "sinon-vcr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "sinon-vcr",
   "main": "src/sinon-vcr.js",
   "devDependencies": {
