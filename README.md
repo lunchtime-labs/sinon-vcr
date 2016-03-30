@@ -50,6 +50,10 @@ var autoplayFalse = require('vcr/autoplay_false');
 
 describe('myObject', function() {
   beforeEach(function() {
+    VCR.init(); // optionally pass 'capture'`
+  });
+
+  afterEach(function() {
     VCR.reset();
   });
 
@@ -72,15 +76,37 @@ spec/fixtures/vcr/autoplay_false.js
 
 ## API
 
+### init:
+function( capture: string )
+
+> Intitializes VCR and sets it up to receive `use` calls.
+
+> Optionally passing the string `capture` will allow ajax to pass through, and
+> place a `debugger` statement in the `reset` method that will allow you an
+> opportunity to pause Javascript exeution and save a `.har` file.
+
+```
+VCR.init(); // Mock AJAX
+VCR.init('capture'); // AJAX runs normally, stop JS execution at cleanup
+```
+
 ### reset:
 `function ()`
 
-Restore the sinon fakeServer between requests.
+> Restore the sinon fakeServer between requests.
+
+```
+VCR.reset();
+```
 
 ### use:
-`function (mock: string)`
+`function (mock: object)`
 
-Use an XHR mock for XHR playback.
+> Use an XHR mock for XHR playback.
+
+```
+VCR.use(require('vcr/mock');
+```
 
 ## Contributing
 
