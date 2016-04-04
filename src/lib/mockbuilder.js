@@ -21,14 +21,48 @@ var cassette = [];
 
         open.apply(this, arguments);
       };
-    }
+    };
 
-    Mockbuilder.prototype.respondWith = function (){
-    }
+    Mockbuilder.prototype.respondWith = function (){};
 
     Mockbuilder.prototype.restore = function (){
-      console.log(cassette); // Todo: make this downloadable by Base64 encoding
+      // Todo: make this downloadable by Base64 encoding
+      console.log("Outputting cassette: ");
+
+      console.log(JSON.stringify(this._format(cassette), null, '  '));
+
       cassette = [];
+    };
+
+    Mockbuilder.prototype._format = function () {
+      return cassette.map(function(mock) {
+        // response
+        mock.response = JSON.parse(mock.response);
+
+        // headers
+        var headers = [];
+        var headerArr = mock.headers.split("\r\n");
+        var index = 0;
+
+        headerArr.forEach(function (singleHeader) {
+          if (index < headerArr.length-1) {
+            var result = {};
+
+            var headerObj = singleHeader.split(':');
+
+            result[headerObj[0]] = headerObj[1];
+
+            headers.push(result);
+          }
+
+          index++;
+        });
+
+        mock.headers = headers;
+
+        // Return
+        return mock;
+      });
     }
 
     return Mockbuilder;
