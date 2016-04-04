@@ -67,7 +67,7 @@ describe('VCR', function() {
         VCR.reset();
       });
 
-      it('allows a call to a url that is not mocked', function(done) {
+      it('allows a call to a url that is not mocked', function (done) {
         $.get('https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo').success(function(){
           done();
         });
