@@ -15,6 +15,7 @@ var Mockbuilder = require('./lib/mockbuilder');
 
       mock.forEach(function(mock){
         _this.server.respondWith(
+          mock.method,
           mock.url,
           [
             mock.status,

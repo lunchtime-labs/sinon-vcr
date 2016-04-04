@@ -22,7 +22,7 @@ describe('VCR', function() {
       it('responds to the endpoints described in the mock', function(done) {
         VCR.use(test);
 
-        $.get(
+        $.post(
           'https://127.0.0.1:8443/system/AD?_action=test',
           function(response) {
             expect(response.name).to.eq('AD');
