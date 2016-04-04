@@ -14,6 +14,10 @@ var Mockbuilder = require('./lib/mockbuilder');
       var _this = this;
 
       mock.forEach(function(mock){
+        if (typeof mock.response === 'object') {
+          mock.response = JSON.stringify(mock.response);
+        }
+
         _this.server.respondWith(
           mock.method,
           mock.url,
