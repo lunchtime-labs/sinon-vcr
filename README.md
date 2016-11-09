@@ -24,11 +24,15 @@ You must have a test suite that:
 
 ### Setup
 
-1. See [Lunchtime Labs MockBuilder](https://github.com/lunchtime-labs/mockbuilder)
-   for information on generating 'mocks'.
-2. Place generated 'mock' files into your 'spec' or 'test' directory.
-   i.e. `$YOUR_PROJECT/spec/fixtures/vcr/`.
-3. Add the path for the mocks to your `browserify` or `webpack` require path.
+1. Create a mock (see below), or see [Lunchtime Labs MockBuilder](https://github.com/lunchtime-labs/mockbuilder)
+   to learn how to generate them.
+
+2. Place 'mock' files into your 'spec' or 'test' directory where 
+   they can be read.
+   
+   i.e. `spec/fixtures/vcr/`.
+
+3. `Use` the mocks in your tests as AJAX responses.
 
 Example using Karma/Browserify
 
@@ -40,15 +44,33 @@ Example using Karma/Browserify
     },
 ```
 
+spec/fixtures/vcr/autoplayFalse.js
+
+```
+module.exports = [
+  {
+    method: "GET",
+    url: /www\.example\.com/,
+    status: 200,
+    headers: {
+      "Content-Type": "application/json"
+    },
+    response: {
+      "auoplay": "false"
+    }
+  }
+]
+```
+
 Mocha Example
 
 ```
 var VCR = require('sinon-vcr');
-var autoplayFalse = require('vcr/autoplay_false');
+var autoplayFalse = require('vcr/autoplayFalse');
 
 describe('myObject', function() {
   beforeEach(function() {
-    VCR.init(); // optionally pass 'capture'`
+    VCR.init();
   });
 
   afterEach(function() {
@@ -58,7 +80,7 @@ describe('myObject', function() {
   it('responds with autoplay false', function(done) {
     VCR.use(autoplayFalse);
 
-    $.get("http://www.example.com/api/v1/publishers", function (response) {
+    $.get("http://www.example.com/", function (response) {
       expect(response.autoplay).to.eq(false);
       done();
     });
@@ -66,13 +88,15 @@ describe('myObject', function() {
 });
 ```
 
-This example will look for mocks in:
-
-```
-spec/fixtures/vcr/autoplay_false.js
-```
-
 ## API
+
+### server
+
+> Allows direct access to sinon's FakeServer
+
+```
+VCR.server.requests // Show requests received by Sinon FakeServer
+```
 
 ### init:
 function( capture: string )
