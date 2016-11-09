@@ -47,6 +47,10 @@ Example using Karma/Browserify
 spec/fixtures/vcr/autoplayFalse.js
 
 ```
+var response = {
+   "autoplay": "false"
+};
+
 module.exports = [
   {
     method: "GET",
@@ -55,9 +59,7 @@ module.exports = [
     headers: {
       "Content-Type": "application/json"
     },
-    response: {
-      "auoplay": "false"
-    }
+    response: JSON.stringify(response)
   }
 ]
 ```
