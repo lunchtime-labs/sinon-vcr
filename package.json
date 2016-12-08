@@ -3,6 +3,9 @@
   "version": "0.0.2",
   "description": "sinon-vcr",
   "main": "src/sinon-vcr.js",
+  "peerDependencies": {
+    "sinon": "^1.17.2"
+  },
   "devDependencies": {
     "browserify": "^12.0.1",
     "chai": "^3.4.1",
