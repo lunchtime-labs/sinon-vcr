@@ -129,7 +129,7 @@ VCR.reset();
 > Use an XHR mock for XHR playback.
 
 ```
-VCR.use(require('vcr/mock');
+VCR.use(require('vcr/mock'));
 ```
 
 ## Contributing
