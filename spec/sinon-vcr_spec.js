@@ -22,7 +22,7 @@ describe('VCR', function() {
       it('responds to the endpoints described in the mock', function(done) {
         VCR.use(test);
 
-        $.get(
+        $.post(
           'https://127.0.0.1:8443/system/AD?_action=test',
           function(response) {
             expect(response.name).to.eq('AD');
@@ -67,7 +67,7 @@ describe('VCR', function() {
         VCR.reset();
       });
 
-      it('allows a call to a url that is not mocked', function(done) {
+      it('allows a call to a url that is not mocked', function (done) {
         $.get('https://api.nasa.gov/planetary/apod?api_key=NNKOjkoul8n1CH18TWA9gwngW1s1SmjESPjNoUFo').success(function(){
           done();
         });

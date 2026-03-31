@@ -1,10 +1,9 @@
+var Mockbuilder = require('./lib/mockbuilder');
 
 (function () {
   var SinonVcr = (function () {
     // Constructor
-    function SinonVcr(){
-      this.init();
-    }
+    function SinonVcr(){}
 
     // Public
     SinonVcr.prototype.reset = function(capture) {
@@ -15,7 +14,12 @@
       var _this = this;
 
       mock.forEach(function(mock){
+        if (typeof mock.response === 'object') {
+          mock.response = JSON.stringify(mock.response);
+        }
+
         _this.server.respondWith(
+          mock.method,
           mock.url,
           [
             mock.status,
@@ -29,18 +33,15 @@
     // Private
     SinonVcr.prototype.init = function (capture) {
       if (capture === 'capture') {
-        this.server = {
-          respondWith: function (){},
-          restore: function (){ debugger }
-        }
+        this.server = new Mockbuilder();
       } else {
         this.server = sinon.fakeServer.create();
         this.server.respondImmediately = true;
       }
     }
 
-    return SinonVcr;
+    return SinonVcr;;
   })();
 
   module.exports = new SinonVcr();
-})()
+})();
